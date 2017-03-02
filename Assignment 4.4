@@ -1,0 +1,31 @@
+1. Java program: copy a file from HDFS to LFS
+
+ The Source path  is taken by copytolocal method from filesystem and destination path as its parameters which is taken from
+arguments 
+ output :1.The file "COPYFILE" has to be removed  by using -rm from local system and then checked it by listing the files
+        2.Then executed my jar file "Hadoop jar copytolocal.jar" and then listed the localsystem by -ls then  my copyfile.txt is copied
+    
+
+2. Importance and usage of the below terms
+● DFSInputStream ● DFSOutputStream ● FSDataInputStream ● FSDataOutputStream
+
+FSDataOutputStream • 
+Provides stream (channel) for writing data. Filesystem’s create () method return FSDataOutputStream, which use to
+create new HDFS file or write the content at the EOF. It doesn’t provide seek because of HDFS limitation to write to content at the EOF
+only. It wrap Java IO’s DataOutputStream and add method such as getPos() to get the position of the file and write() to write the content 
+at the last position.
+
+FSDataInputStream • 
+The stream (channel) is provided for reading data. FSDataInputStream wraps the DataInputStream and implements Seekable, 
+PositionedReadable interfaces which provide method like getPos(), seek() method to provide Random Access on HDFS file. . Below sample 
+code uses seek (), getPos () and read() method FSDataInputStream also implements
+PositionedReadable, which provide read, & readFully method to read part of file content from seek position as mentioned below read
+(long position, byte[] buffer, int offset, int length) DFSInputStreamseek() method seek
+the file to the given offset from the start of the file so that read () will stream from that location whereas getPos() method will return
+the current position on the InputStream
+• Handles communication of the namenode with various datanodes
+• Called internally by FSDataInputStream..
+• Manages data read activity in case of datanode failure. 
+
+DFSOutputStream•
+ The communication of the namenode are handles with various datanodes,so it is also Called internally by FSDataOutputStream.
